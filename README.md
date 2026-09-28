@@ -33,7 +33,7 @@ love, find them on a map, and share them with friends!
 1. Clone the repo.
 2. Copy `local.properties.example` to `local.properties` and add your Google Maps API key:
    `MAPS_API_KEY=your_key_here`
-   (`local.properties` is gitignored — never commit a key.)
+   (`local.properties` is gitignored — never commit a key).
 3. Open the project folder in Android Studio. It downloads Gradle and syncs on first open.
 4. Run on an emulator or device (Maps needs Google Play Services).
 
