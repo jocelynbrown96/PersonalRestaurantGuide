@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ic_launcher_background">#7A4E2D</color>
-    <color name="brand_primary">#7A4E2D</color>
-    <color name="brand_accent">#E8A838</color>
+
+    <!-- App -->
+    <color name="ic_launcher_background">#C95A3D</color>
+
+    <!-- Brand -->
+    <color name="brand_primary">#171717</color>
+    <color name="brand_accent">#C95A3D</color>
+
+    <!-- Backgrounds -->
+    <color name="background">#F7F3ED</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="glass_background">#E6FFFFFF</color>
+
+    <!-- Text -->
+    <color name="text_primary">#171717</color>
+    <color name="text_secondary">#77716B</color>
+
+    <!-- UI -->
+    <color name="divider">#D8D0C7</color>
+
 </resources>

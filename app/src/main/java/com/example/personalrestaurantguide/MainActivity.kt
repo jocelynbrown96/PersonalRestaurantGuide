@@ -2,41 +2,90 @@ package com.example.personalrestaurantguide
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.example.personalrestaurantguide.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.cardview.widget.CardView
 
-/**
- * Home screen — the user's saved restaurants.
- *
- * TODO (UI/UX): wire up the RecyclerView with a RestaurantAdapter,
- * connect the SearchView to filter via RestaurantRepository.searchRestaurants(),
- * and load data with a lifecycleScope coroutine.
- */
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var screenContainer: FrameLayout
+    private lateinit var bottomNav: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        binding.bottomNav.setOnItemSelectedListener { item ->
+        // Use the host layout with the permanent bottom navigation
+        setContentView(R.layout.activity_main_host)
+
+        screenContainer = findViewById(R.id.screenContainer)
+        bottomNav = findViewById(R.id.bottomNav)
+
+        // Show Home screen when the app starts
+        showScreen(R.layout.activity_main)
+
+        bottomNav.selectedItemId = R.id.nav_home
+
+        // Bottom navigation
+        bottomNav.setOnItemSelectedListener { item ->
+
             when (item.itemId) {
+
+                R.id.nav_home -> {
+                    showScreen(R.layout.activity_main)
+                    true
+                }
+
                 R.id.nav_map -> {
-                    startActivity(Intent(this, MapActivity::class.java))
+                    showScreen(R.layout.activity_map)
                     true
                 }
+
                 R.id.nav_about -> {
-                    startActivity(Intent(this, AboutActivity::class.java))
+                    showScreen(R.layout.activity_about)
                     true
                 }
-                else -> true // nav_home — already here
+
+                else -> false
             }
         }
+    }
 
-        binding.fabAdd.setOnClickListener {
-            startActivity(Intent(this, AddRestaurantActivity::class.java))
+    private fun showScreen(layoutId: Int) {
+
+        screenContainer.removeAllViews()
+
+        val view = LayoutInflater.from(this)
+            .inflate(layoutId, screenContainer, false)
+
+        screenContainer.addView(view)
+
+        // Home screen buttons
+        if (layoutId == R.layout.activity_main) {
+
+            // Scaddabush card
+            val restaurantCard = view.findViewById<CardView>(
+                R.id.restaurantCard1
+            )
+
+            restaurantCard.setOnClickListener {
+                startActivity(
+                    Intent(this, RestaurantDetailActivity::class.java)
+                )
+            }
+
+            // Add restaurant button
+            val addButton = view.findViewById<FloatingActionButton>(
+                R.id.fabAdd
+            )
+
+            addButton.setOnClickListener {
+                startActivity(
+                    Intent(this, AddRestaurantActivity::class.java)
+                )
+            }
         }
     }
 }
